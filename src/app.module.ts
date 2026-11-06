@@ -7,6 +7,9 @@ import { JoiValidationSchema } from './common/config/joi.config';
 import { WatchesModule } from './watches/watches.module';
 import { CommonModule } from './common/common.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { SendEmailModule } from './send-email/send-email.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     WatchesModule,
     CommonModule,
     CloudinaryModule,
+    AuthModule,
+    UsersModule,
+    SendEmailModule
   ],
   controllers: [AppController],
   providers: [AppService],

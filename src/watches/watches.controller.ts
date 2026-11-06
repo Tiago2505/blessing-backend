@@ -15,12 +15,17 @@ import { WatchesService } from './watches.service';
 import { ImagesInterceptor } from '../common/interceptors';
 import { CreateWatchParams, UpdateWatchParams } from './interfaces';
 import { CreateWatchDto, UpdateWatchDto } from './dto';
+import { Auth } from '../auth/decorators';
+import { UserRoles } from '../users/enums';
+import { ApiTags } from '@nestjs/swagger';
 
+ApiTags('Watches')
 @Controller('watches')
 export class WatchesController {
   constructor(private readonly watchesService: WatchesService) {}
 
   @Post()
+  @Auth(UserRoles.ADMIN)
   @UseInterceptors(ImagesInterceptor())
   create(
     @Body() createWatchDto: CreateWatchDto,
@@ -42,11 +47,13 @@ export class WatchesController {
   }
 
   @Get(':id')
+  @Auth(UserRoles.ADMIN)
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.watchesService.findOne(id);
   }
 
   @Patch(':id')
+  @Auth(UserRoles.ADMIN)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateWatchDto: UpdateWatchDto,
@@ -64,6 +71,7 @@ export class WatchesController {
   }
 
   @Delete(':id')
+  @Auth(UserRoles.ADMIN)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.watchesService.remove(id);
   }
